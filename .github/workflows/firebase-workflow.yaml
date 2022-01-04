@@ -1,0 +1,23 @@
+name: Build and Deploy
+on:
+  push:
+    branches: [ developer ]
+  pull_request:
+    branches: [ developer ]
+
+jobs:
+  build:
+    name: Deployment
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@developer
+      - name: Install firebase tool
+        run: sudo npm install -g firebase-tools 
+      - name: Install yarn
+        run: npm install yarn
+      - name: Install Dependencies
+        run: yarn install
+      - name: Deploy
+        run: firebase deploy --token ${{ secrets.FIREBASE_TOKEN }}
