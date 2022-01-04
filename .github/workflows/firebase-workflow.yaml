@@ -12,7 +12,7 @@ jobs:
 
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@developer
+        uses: actions/checkout@master
       - name: Install firebase tool
         run: sudo npm install -g firebase-tools 
       - name: Install yarn
