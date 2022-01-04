@@ -1,0 +1,12 @@
+.ne-card-auth {
+    margin-top: calc((100vh - 120px - 100%)/2);
+}
+
+.ne-card-auth .ne-card {
+    background-color: #112138 !important;
+}
+
+.ne-card-auth .form-control {
+    background-color: #09182c !important;
+    border-color: #051428 !important;
+}

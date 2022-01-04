@@ -1,0 +1,32 @@
+main {
+    display: flex !important;
+    flex-wrap: nowrap;
+}
+
+.ne-page-content {
+    flex: 1;
+    overflow-y: hidden;
+    min-height: calc(100vh);
+}
+
+.ne-page-content-wrap {
+    padding: 20px 40px;
+    min-height: calc(100vh - 50px);
+}
+
+.ne-header-collapsed .ne-sidebar-toggle svg {
+    transform: rotate( 180deg);
+}
+
+.ne-main-z {
+    transition: all ease-in-out .3s;
+}
+
+@media(min-width:1025px) {
+    .ne-main-collapsed {
+        padding-left: 70px;
+    }
+    .ne-main-expanded {
+        padding-left: 280px;
+    }
+}

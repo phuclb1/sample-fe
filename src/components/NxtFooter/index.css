@@ -1,0 +1,20 @@
+.ne-footer {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px !important;
+    font-size: 13px;
+    color: rgba(255, 255, 255, .7);
+    background-color: #051221;
+}
+
+.ne-footer span:nth-child(2) {
+    color: rgba(255, 255, 255, .5);
+}
+
+@media(max-width:991px) {
+    .ne-footer {
+        padding: 0 20px !important;
+    }
+}

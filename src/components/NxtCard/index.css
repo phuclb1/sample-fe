@@ -1,0 +1,36 @@
+.ne-card {
+    background-color: #061322;
+    border-radius: .25rem;
+    box-shadow: none;
+    margin-bottom: 1.875rem;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 1px 2px 10px rgba(0, 0, 0, .2);
+}
+
+.ne-card .ne-card-header {
+    padding: .85rem 1.5rem;
+    border-bottom: 1px solid #050d1b;
+    border-top-left-radius: .25rem;
+    border-top-right-radius: .25rem;
+    color: #fff;
+    font-weight: 600;
+}
+
+.ne-card .ne-card-title {
+    text-transform: uppercase;
+}
+
+.ne-card .ne-card-body {
+    flex: 1;
+    overflow: auto;
+    padding: 1rem 1.5rem;
+    position: relative;
+    font-weight: 400;
+}
+
+@media(max-width:992px) {
+    .ne-card {
+        margin-bottom: 15px;
+    }
+}

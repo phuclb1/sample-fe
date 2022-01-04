@@ -1,0 +1,79 @@
+.access-denied {
+    max-width: 460px;
+    width: 100%;
+    text-align: center;
+    line-height: 1.4;
+    margin: 100px auto 0 auto;
+}
+
+.access-denied .access-denied-403 {
+    position: relative;
+    width: 180px;
+    height: 180px;
+    margin: 0px auto 50px;
+}
+
+.access-denied .access-denied-403>div:first-child {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: #051223;
+    transform: rotate( 45deg);
+    border: 3px dashed #112241;
+    border-radius: 5px;
+}
+
+.access-denied .access-denied-403>div:first-child:before {
+    content: '';
+    position: absolute;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    top: -5px;
+    -webkit-box-shadow: 0px 0px 0px 5px rgba(0, 0, 0, 0.1) inset;
+    box-shadow: 0px 0px 0px 5px rgba(0, 0, 0, 0.1) inset;
+    border-radius: 5px;
+}
+
+.access-denied .access-denied-403 h1 {
+    font-family: 'Cabin', sans-serif;
+    color: #fff;
+    font-weight: 700;
+    margin: 0;
+    font-size: 90px;
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    left: 50%;
+    text-align: center;
+    height: 40px;
+    line-height: 40px;
+}
+
+.access-denied h2 {
+    font-family: 'Cabin', sans-serif;
+    font-size: 33px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.access-denied p {
+    font-family: 'Cabin', sans-serif;
+    font-size: 16px;
+    color: #ffffff80;
+    font-weight: 400;
+}
+
+body.ne-light .access-denied .access-denied-403 h1,
+body.ne-light .access-denied p {
+    color: #000;
+}
+
+body.ne-light .access-denied .access-denied-403>div:first-child {
+    background: #e0e8f6;
+    border: 3px dashed #576785;
+}
