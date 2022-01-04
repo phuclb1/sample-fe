@@ -27,7 +27,7 @@ const NxtHeaderUser = ({ onClick }) => {
         <div className="ne-header-dropdown ne-header-user">
             <Dropdown overlay={menu} trigger={['click']} overlayClassName="ne-dropdown-header-overlay" placement="bottomRight">
                 <a className="dropdown-toggle" onClick={e => e.preventDefault()}>
-                    <img src={userInfo?.avatar ? userInfo.avatar : DEFAULT_AVATAR} alt="Avatar" />
+                    <img src= {DEFAULT_AVATAR} alt="Avatar" />
                     {/* <span className="d-none d-md-block">{userInfo?.username}</span> */}
                 </a>
             </Dropdown>
