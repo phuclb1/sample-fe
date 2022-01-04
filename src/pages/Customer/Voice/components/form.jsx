@@ -216,13 +216,13 @@ const VoiceForm = (props) => {
                                 <Form.Group controlId="ctrlAudio" className="mb-0 mr-5">
                                     <Form.Label>Voice <span>*</span></Form.Label>
                                 </Form.Group>
-                                {/* <div className="d-flex justify-content-end">
+                                <div className="d-flex justify-content-end">
                                     <NxtTooltip tooltip="You can upload an voice or use your audio to record.">
                                         <Form.Group>
                                             <Form.Check className="form-switch d-flex align-items-center me-4" label="Use audio record" defaultChecked={useAudio} onChange={(e) => setUseAudio(e.target.checked)} />
                                         </Form.Group>
                                     </NxtTooltip>
-                                </div> */}
+                                </div>
                             </div>
                             {
                                 currentId ? <div style={{ width: '400px', maxWidth: '100%' }}>
