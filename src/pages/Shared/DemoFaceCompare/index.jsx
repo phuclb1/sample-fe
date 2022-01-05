@@ -154,6 +154,14 @@ const DemoFaceComparePage = () => {
                 break;
             }
         }
+        if (useCamera1) {
+            setImage1(ref1.current.getScreenshot());
+            setUseCamera1(false);
+        }
+        if (useCamera2) {
+            setImage2(ref2.current.getScreenshot());
+            setUseCamera2(false);
+        }
         console.log(postData.image2)
         if (!postData.image1 || !postData.image2) {
             toast.error('Please submit two faces to compare.');

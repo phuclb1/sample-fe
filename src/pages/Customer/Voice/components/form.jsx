@@ -263,7 +263,7 @@ const VoiceForm = (props) => {
                         </Col>
                     </Row>
                     <div className="mt-3">
-                        <Button type="submit" variant="primary">Enrollment</Button>
+                        <Button type="submit" variant="primary">Enroll</Button>
                     </div>
                 </Form>
             </Card>
