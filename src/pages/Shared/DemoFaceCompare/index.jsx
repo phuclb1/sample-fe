@@ -213,7 +213,7 @@ const DemoFaceComparePage = () => {
                     <Card>
                         <Row>
                             <Col md="6">
-                                <Flex alignItem="center" justifyContent="end" style={{ height: '42px' }}>
+                                <Flex alignItem="center" justifyContent="end" style={{ height: (typeOfCompare === 'url/image') ? '42px' : 'auto' }}>
                                     {typeOfCompare === 'image/image' && <NxtTooltip tooltip="You can upload an image or use your camera to capture a face.">
                                         <Form.Group>
                                             <Form.Check className="form-switch d-flex align-items-center" label="Use camera" defaultChecked={useCamera1} onChange={(e) => handleUseCamera1Change(e)} />
@@ -268,11 +268,12 @@ const DemoFaceComparePage = () => {
                             </Col>
                             <Col md="6">
                                 <Flex alignItem="center" justifyContent="end">
-                                    <NxtTooltip tooltip="You can upload an image or use your camera to capture a face.">
+                                    {(typeOfCompare.indexOf('image') !== -1) && <NxtTooltip tooltip="You can upload an image or use your camera to capture a face.">
                                         <Form.Group>
                                             <Form.Check className="form-switch d-flex align-items-center" label="Use camera" defaultChecked={useCamera2} onChange={(e) => handleUseCamera2Change(e)} />
                                         </Form.Group>
                                     </NxtTooltip>
+                                    }
                                 </Flex>
 
                                 {(typeOfCompare.indexOf('image') !== -1) && <>
@@ -336,7 +337,7 @@ const DemoFaceComparePage = () => {
                     </Card>
                 </Col>
                 <Col lg="4">
-                    <Card style={{ height: '485px' }}>
+                    <Card style={{ height: (typeOfCompare.indexOf('image') !== -1) ? '532px' : '485px' }}>
                         <Flex justifyContent="between" className="mb-3">
                             <Nav className="nav-tabs nav-tunnel nav-slider mb-0">
                                 <Nav.Item>
