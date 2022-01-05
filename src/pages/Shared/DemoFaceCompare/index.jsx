@@ -23,6 +23,8 @@ const DemoFaceComparePage = () => {
     const [url2, setUrl2] = useState(null);
     const [useCamera1, setUseCamera1] = useState(false);
     const [useCamera2, setUseCamera2] = useState(false);
+    const [isCamera1Captured, setIsCamera1Captured] = useState(false);
+    const [isCamera2Captured, setIsCamera2Captured] = useState(false);
     const [permGranted, setPermGranted] = useState(false);
     const [deviceId, setDeviceId] = useState("");
     const [availableDevices, setAvailableDevices] = useState([]);
@@ -96,9 +98,13 @@ const DemoFaceComparePage = () => {
 
     const handleUseCamera1Change = (e) => {
         setUseCamera1(e.target.checked);
+        setImage1('');
+        setIsCamera1Captured(false);
     }
     const handleUseCamera2Change = (e) => {
         setUseCamera2(e.target.checked);
+        setImage2('');
+        setIsCamera2Captured(false);
     }
 
     const onReset = () => {
@@ -107,12 +113,15 @@ const DemoFaceComparePage = () => {
         setUrl1('');
         setUrl2('');
         setDataResult(null);
+        setIsCamera1Captured(false);
+        setIsCamera2Captured(false);
     }
 
     const handleSelectedImage1Change = (e) => {
         setImage1(e);
         if (!e) {
             setImage1('');
+            setIsCamera1Captured(false);
             setDataResult(null);
         }
     }
@@ -120,6 +129,7 @@ const DemoFaceComparePage = () => {
         setImage2(e);
         if (!e) {
             setImage2('');
+            setIsCamera2Captured(false);
             setDataResult(null);
         }
     }
@@ -134,8 +144,8 @@ const DemoFaceComparePage = () => {
         switch (typeOfCompare) {
             case 'image/image': {
                 postData = {
-                    image1: useCamera1 ? ref1.current.getScreenshot() : image1,
-                    image2: useCamera2 ? ref2.current.getScreenshot() : image2
+                    image1: (useCamera1 && !isCamera1Captured) ? ref1.current.getScreenshot() : image1,
+                    image2: (useCamera2 && !isCamera2Captured) ? ref2.current.getScreenshot() : image2
                 }
                 break;
             }
@@ -149,20 +159,22 @@ const DemoFaceComparePage = () => {
             case 'url/image': {
                 postData = {
                     image1: url1,
-                    image2:  useCamera2 ? ref2.current.getScreenshot() :image2
+                    image2: (useCamera2 && !isCamera2Captured) ? ref2.current.getScreenshot() : image2
                 }
                 break;
             }
         }
-        if (useCamera1) {
+
+        // For case user click Compare without capture
+        if (useCamera1 && !isCamera1Captured) {
             setImage1(ref1.current.getScreenshot());
-            setUseCamera1(false);
+            setIsCamera1Captured(true);
         }
-        if (useCamera2) {
+        if (useCamera2 && !isCamera2Captured) {
             setImage2(ref2.current.getScreenshot());
-            setUseCamera2(false);
+            setIsCamera2Captured(true);
         }
-        console.log(postData.image2)
+
         if (!postData.image1 || !postData.image2) {
             toast.error('Please submit two faces to compare.');
             return;
@@ -179,6 +191,16 @@ const DemoFaceComparePage = () => {
         }
     }
 
+    const handleCapture = (cameraId) => {
+        if (cameraId === 1) {
+            setImage1(ref1.current.getScreenshot());
+            setIsCamera1Captured(true);
+        } else {
+            setImage2(ref2.current.getScreenshot());
+            setIsCamera2Captured(true);
+        }
+    }
+
     return <div className="ne-page-body ne-page-not-found">
         <NextPageHeader
             title="Face Compare Demo"
@@ -191,33 +213,43 @@ const DemoFaceComparePage = () => {
                     <Card>
                         <Row>
                             <Col md="6">
-                                <Flex alignItem="center" justifyContent="end">
-                                    <NxtTooltip tooltip="You can upload an image or use your camera to capture a face.">
+                                <Flex alignItem="center" justifyContent="end" style={{ height: '42px' }}>
+                                    {typeOfCompare === 'image/image' && <NxtTooltip tooltip="You can upload an image or use your camera to capture a face.">
                                         <Form.Group>
                                             <Form.Check className="form-switch d-flex align-items-center" label="Use camera" defaultChecked={useCamera1} onChange={(e) => handleUseCamera1Change(e)} />
                                         </Form.Group>
                                     </NxtTooltip>
+                                    }
                                 </Flex>
 
                                 {typeOfCompare === 'image/image' && <>
                                     {useCamera1 ? <div className="fs-camera bg-dark mb-3" style={{ height: '360px' }}>
                                         {permGranted ? <BlockUi blocking={availableDevicesLoading}>
-                                            <Webcam style={{ borderRadius: "5px" }} ref={ref1}
-                                                width="100%"
-                                                height="100%"
-                                                audio={false}
-                                                videoConstraints={{
-                                                    deviceId: deviceId ? { exact: deviceId } : undefined,
-                                                }}
-                                            />
-                                            <Form.Control as="select" size="sm" className="form-control form-select camera-select" value={deviceId} onChange={(e) => setDeviceId(e.target.value)}>
-                                                {availableDevices?.map((item, idx) => {
-                                                    return <option value={item.deviceId} key={idx}>{item.label}</option>
-                                                })}
-                                            </Form.Control>
-                                        </BlockUi> : <div className="text-muted d-flex h-100 justify-content-center align-items-center p-3">
-                                            Please grant using camera permission to use camera
-                                        </div>
+                                            {
+                                                !isCamera1Captured ? <>
+                                                    <Webcam style={{ borderRadius: "5px" }} ref={ref1}
+                                                        width="100%"
+                                                        height="100%"
+                                                        audio={false}
+                                                        videoConstraints={{
+                                                            deviceId: deviceId ? { exact: deviceId } : undefined,
+                                                        }}
+                                                    />
+                                                    <Form.Control as="select" size="sm" className="form-control form-select camera-select" value={deviceId} onChange={(e) => setDeviceId(e.target.value)}>
+                                                        {availableDevices?.map((item, idx) => {
+                                                            return <option value={item.deviceId} key={idx}>{item.label}</option>
+                                                        })}
+                                                    </Form.Control>
+                                                    <button type="button" className="btn-capture" onClick={() => handleCapture(1)}>
+                                                        <i className="fas fa-camera"></i>
+                                                    </button>
+                                                </> :
+                                                    <UploadComponent isUploadFile={false} inputData={image1} height={355} onSelectedFileChange={handleSelectedImage1Change} />
+                                            }
+                                        </BlockUi> :
+                                            <div className="text-muted d-flex h-100 justify-content-center align-items-center p-3">
+                                                Please grant using camera permission to use camera
+                                            </div>
                                         }
                                     </div> :
                                         <UploadComponent isUploadFile={false} inputData={image1} height={355} onSelectedFileChange={handleSelectedImage1Change} />
@@ -246,22 +278,30 @@ const DemoFaceComparePage = () => {
                                 {(typeOfCompare.indexOf('image') !== -1) && <>
                                     {useCamera2 ? <div className="fs-camera bg-dark mb-3" style={{ height: '360px' }}>
                                         {permGranted ? <BlockUi blocking={availableDevicesLoading}>
-                                            <Webcam style={{ borderRadius: "5px" }} ref={ref2}
-                                                width="100%"
-                                                height="100%"
-                                                audio={false}
-                                                videoConstraints={{
-                                                    deviceId: deviceId ? { exact: deviceId } : undefined,
-                                                }}
-                                            />
-                                            <Form.Control as="select" size="sm" className="form-control form-select camera-select" value={deviceId} onChange={(e) => setDeviceId(e.target.value)}>
-                                                {availableDevices?.map((item, idx) => {
-                                                    return <option value={item.deviceId} key={idx}>{item.label}</option>
-                                                })}
-                                            </Form.Control>
-                                        </BlockUi> : <div className="text-muted d-flex h-100 justify-content-center align-items-center p-3">
-                                            Please grant using camera permission to use camera
-                                        </div>
+                                            {!isCamera2Captured ? <>
+                                                <Webcam style={{ borderRadius: "5px" }} ref={ref2}
+                                                    width="100%"
+                                                    height="100%"
+                                                    audio={false}
+                                                    videoConstraints={{
+                                                        deviceId: deviceId ? { exact: deviceId } : undefined,
+                                                    }}
+                                                />
+                                                <Form.Control as="select" size="sm" className="form-control form-select camera-select" value={deviceId} onChange={(e) => setDeviceId(e.target.value)}>
+                                                    {availableDevices?.map((item, idx) => {
+                                                        return <option value={item.deviceId} key={idx}>{item.label}</option>
+                                                    })}
+                                                </Form.Control>
+                                                <button type="button" className="btn-capture" onClick={() => handleCapture(2)}>
+                                                    <i className="fas fa-camera"></i>
+                                                </button>
+                                            </> :
+                                                <UploadComponent isUploadFile={false} inputData={image2} height={355} onSelectedFileChange={handleSelectedImage2Change} />
+                                            }
+                                        </BlockUi> :
+                                            <div className="text-muted d-flex h-100 justify-content-center align-items-center p-3">
+                                                Please grant using camera permission to use camera
+                                            </div>
                                         }
                                     </div> :
                                         <UploadComponent isUploadFile={false} inputData={image2} height={355} onSelectedFileChange={handleSelectedImage2Change} />

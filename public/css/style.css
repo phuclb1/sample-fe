@@ -920,7 +920,7 @@ body.ne-dark .fs-upload-zone {
 .nav-tabs.nav-tunnel .nav-link.active {
     border-color: #10213d !important;
     color: #fff !important;
-    background-color: #06a9ce !important; 
+    background-color: #06a9ce !important;
 }
 
 body.ne-light .nav-tunnel {
@@ -939,7 +939,7 @@ body.ne-light .nav-tabs.nav-tunnel .nav-link:hover {
 body.ne-light .nav-tabs.nav-tunnel .nav-link.active {
     border-color: #dee2e6 #dee2e6 #3a57e8 !important;
     color: #fff !important;
-    background-color: #06a9ce !important; 
+    background-color: #06a9ce !important;
 }
 
 .nav-tunnel .nav-link {
@@ -1512,7 +1512,34 @@ body.ne-light .ant-card .ant-radio-button-wrapper {
     border-color: #06a9ce;
 }
 
-.ne-card-auth .btn-primary:hover { 
+.ne-card-auth .btn-primary:hover {
     background-color: #038ead;
-    border-color: #038ead;  
+    border-color: #038ead;
+}
+
+.btn-capture {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 20px;
+    background-color: rgba(255, 255, 255, .1);
+    border-color: #06a9ce;
+    box-shadow: 0 10px 20px -10px rgb(17 38 146 / 40%) !important;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    color: #fff !important;
+    border: 0;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    transition: all ease-in-out .3s;
+    opacity: .6;
+}
+
+.btn-capture:hover {
+    background-color: #038ead;
+    opacity: 1;
 }
