@@ -181,7 +181,12 @@ const VoiceForm = (props) => {
         console.log('audioData', audioData)
         setAudioData(audioData);
     }
-
+    const handleStartRecord = () => {
+        setRecordState(RecordState.START);
+        window.setTimeout(() => {
+            setRecordState(RecordState.STOP);
+        }, 5000)
+    }
     return <div className="ne-page-body ne-page-voice-form">
         <BlockUi blocking={blockUI}>
             <NextPageHeader
@@ -239,8 +244,8 @@ const VoiceForm = (props) => {
                                             <div>
                                                 <AudioReactRecorder backgroundColor="#f1f3f4" foregroundColor="#0d6efd" state={recordState} onStop={onStop} canvasHeight={54} canvasWidth={300} />
                                                 <div className="audio-recorder-control text-center mt-2 pt-1">
-                                                    <button type="button" className="btn btn-sm btn-secondary mr-2" onClick={() => setRecordState(RecordState.START)}>Start</button>
-                                                    <button type="button" className="btn btn-sm btn-secondary mr-2" disabled={recordState !== RecordState.START} onClick={() => setRecordState(RecordState.PAUSE)}>Pause</button>
+                                                    <button type="button" className="btn btn-sm btn-secondary mr-2" onClick={() => handleStartRecord()}>Start</button>
+                                                    {/* <button type="button" className="btn btn-sm btn-secondary mr-2" disabled={recordState !== RecordState.START} onClick={() => setRecordState(RecordState.PAUSE)}>Pause</button> */}
                                                     <button type="button" className="btn btn-sm btn-secondary" disabled={recordState !== RecordState.START && recordState !== RecordState.PAUSE} onClick={() => setRecordState(RecordState.STOP)}>Stop</button>
                                                 </div>
                                             </div>
@@ -258,7 +263,7 @@ const VoiceForm = (props) => {
                         </Col>
                     </Row>
                     <div className="mt-3">
-                        <Button type="submit" variant="primary">Save Changes</Button>
+                        <Button type="submit" variant="primary">Enrollment</Button>
                     </div>
                 </Form>
             </Card>
