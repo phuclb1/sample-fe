@@ -97,12 +97,7 @@ const DemoVoiceMatchPage = () => {
         console.log('audioData', audioData)
         setAudioData(audioData);
     }
-    const handleStartRecord = () => {
-        setRecordState(RecordState.START);
-        window.setTimeout(() => {
-            setRecordState(RecordState.STOP);
-        }, 5000)
-    }
+
     async function loadOptions(search, loadedOptions, { page }) {
         const response = await API.voice.search({
             page: page,
@@ -204,10 +199,10 @@ const DemoVoiceMatchPage = () => {
                                         <div>
                                             <AudioReactRecorder backgroundColor="#f1f3f4" foregroundColor="#0d6efd" state={recordState} onStop={onStop} canvasHeight={54} canvasWidth={300} />
                                             <div className="audio-recorder-control text-center mt-2 pt-1">
-                                                    <button type="button" className="btn btn-sm btn-secondary mr-2" onClick={() => handleStartRecord()}>Start</button>
-                                                    {/* <button type="button" className="btn btn-sm btn-secondary mr-2" disabled={recordState !== RecordState.START} onClick={() => setRecordState(RecordState.PAUSE)}>Pause</button> */}
-                                                    <button type="button" className="btn btn-sm btn-secondary" disabled={recordState !== RecordState.START && recordState !== RecordState.PAUSE} onClick={() => setRecordState(RecordState.STOP)}>Stop</button>
-                                                </div>
+                                                <button type="button" className="btn btn-sm btn-secondary mr-2" onClick={() => setRecordState(RecordState.START)}>Start</button>
+                                                {/* <button type="button" className="btn btn-sm btn-secondary mr-2" disabled={recordState !== RecordState.START} onClick={() => setRecordState(RecordState.PAUSE)}>Pause</button> */}
+                                                <button type="button" className="btn btn-sm btn-secondary" disabled={recordState !== RecordState.START && recordState !== RecordState.PAUSE} onClick={() => setRecordState(RecordState.STOP)}>Stop</button>
+                                            </div>
                                         </div>
                                         <audio id='audio' controls src={audioData ? audioData.url : null}></audio>
 
